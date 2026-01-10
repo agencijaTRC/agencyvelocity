@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <title>VELOCITY — Agencija za gostinstvo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(10, 15, 25, 0.55);
+      --panelBorder: rgba(255,255,255,0.10);
+      --text: #f3f4f6;
+      --muted: #cbd5e1;
+      --accent: #d6b25e; /* muted gold */
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    /* Top nav */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(6, 10, 18, 0.75);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner{
+      padding: 14px 10%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 160px;
+    }
+
+    .brand-name{
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.06em;
+      font-size: 18px;
+    }
+
+    .nav{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .nav a{
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      transition: transform .15s ease, border-color .15s ease, opacity .15s ease;
+    }
+
+    .nav a:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.22);
+      opacity: 0.95;
+    }
+
+    .nav a.primary{
+      background: var(--accent);
+      color: #0b1220;
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    /* Language switch */
+    .lang{
+      display:flex;
+      gap: 8px;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px solid rgba(255,255,255,0.14);
+    }
+    .lang a{
+      padding: 10px 10px;
+      min-width: 44px;
+      text-align: center;
+    }
+    .lang a.active{
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.22);
+      font-weight: 700;
+    }
+
+    /* Hero */
+    header {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      padding: 0 10%;
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.60) 100%),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2400&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero {
+      max-width: 820px;
+      background: var(--panel);
+      padding: 44px;
+      border-radius: 16px;
+      border: 1px solid var(--panelBorder);
+      backdrop-filter: blur(8px);
+    }
+
+    .badge{
+      display:inline-block;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.10);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 5.6vw, 62px);
+      margin: 0 0 14px;
+      letter-spacing: 0.01em;
+      line-height: 1.08;
+    }
+
+    .hero p{
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 64ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #0b1220;
+      background: var(--accent);
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    .btn:hover{ transform: translateY(-1px); opacity: .95; }
+
+    .btn-ghost{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-weight: 600;
+    }
+
+    /* Sections */
+    section{
+      padding: 86px 10%;
+    }
+
+    .section-title{
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      margin: 0 0 26px;
+    }
+
+    .muted{
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 78ch;
+    }
+
+    .services{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 26px;
+      border-radius: 16px;
+    }
+
+    .card h3{
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* FAQ */
+    details{
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    details + details{
+      margin-top: 12px;
+    }
+
+    summary{
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    details p{
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Footer */
+    footer{
+      padding: 44px 10%;
+      background: #070c16;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+
+    .socials{
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    footer a{
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+    }
+
+    footer a:hover{ border-color: rgba(255,255,255,0.22); }
+
+    /* Mobile */
+    @media (max-width: 720px){
+      .topbar-inner{ padding: 12px 6%; }
+      header{ padding: 0 6%; }
+      section{ padding: 70px 6%; }
+      .hero{ padding: 26px; }
+      .brand{ min-width: auto; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Buttons / Menu -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-name">VELOCITY</div>
+      </div>
+
+      <nav class="nav">
+        <a href="#about">O NAS</a>
+        <a href="#contact" class="primary">KONTAKT</a>
+        <a href="#faq">FAQ</a>
+        <a href="#ratings">MNENJA</a>
+
+        <div class="lang" aria-label="Language switch">
+          <a class="active" href="index.html">SI</a>
+          <a href="index-en.html">EN</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header>
+    <div class="hero">
+      <div class="badge">Agencija za gostinstvo</div>
+
+      <h1>Močnejše znamke. Boljši prostori. Pravi rezultati.</h1>
+
+      <p>
+        Pomagamo restavracijam, barom in pekarnam dvigniti ambient in prepoznavnost —
+        od optimizacije postavitve prostora do profesionalnega upravljanja družbenih omrežij.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn" href="#contact">Kontaktirajte nas</a>
+        <a class="btn btn-ghost" href="#about">Več o nas</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about">
+    <h2 class="section-title">O VELOCITY</h2>
+    <p class="muted">
+      VELOCITY je premium agencija za gostinstvo, namenjena podjetjem, ki jim je mar za detajle.
+      Združujemo optimizacijo fizičnega prostora in sodobno strategijo nastopa — da vaš lokal deluje bolje,
+      teče bolj gladko in prodaja več.
+    </p>
+
+    <div class="services">
+      <div class="card">
+        <h3>Prostor & pretok</h3>
+        <p>Optimiziramo postavitev, sedežni red in gibanje za boljšo izkušnjo gostov.</p>
+      </div>
+
+      <div class="card">
+        <h3>Vodenje omrežij</h3>
+        <p>Upravljamo vaš nastop na družbenih omrežjih z vsebino, ki je skladna z vašim brandom.</p>
+      </div>
+
+      <div class="card">
+        <h3>Prepoznavnost znamke</h3>
+        <p>Uskladimo ambient in komunikacijo, da delujete premium online in v živo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2 class="section-title">Kontakt</h2>
+    <p class="muted">
+      Želite jasen plan za prostor in prisotnost? Pišite nam — odgovorimo hitro in konkretno.
+    </p>
+
+    <div class="services">
+      <div class="card">
+        <h3>E-pošta</h3>
+        <p><a href="mailto:hello@velocity.agency" style="color: var(--text); font-weight:700; text-decoration:none;">hello@velocity.agency</a></p>
+        <p style="margin-top:10px; color: var(--muted);">Najbolje za vprašanja, ponudbe in planiranje.</p>
+      </div>
+
+      <div class="card">
+        <h3>Povezave</h3>
+        <p style="color: var(--muted);">Tukaj bosta samo X in e-pošta.</p>
+        <p style="margin-top:10px;">
+          <a href="#" target="_blank" rel="noreferrer" style="color: var(--text); font-weight:700; text-decoration:none;">X</a>
+          <span style="color: var(--muted); margin: 0 8px;">•</span>
+          <a href="mailto:hello@velocity.agency" style="color: var(--text); font-weight:700; text-decoration:none;">E-pošta</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <h2 class="section-title">FAQ</h2>
+
+    <details>
+      <summary>S kom sodelujete?</summary>
+      <p>Restavracije, bari, kavarne in pekarne — gostinski brendi, ki želijo premium pozicioniranje in rast.</p>
+    </details>
+
+    <details>
+      <summary>Kaj vključuje optimizacija prostora?</summary>
+      <p>Predloge postavitve, izboljšave pretoka, optimizacijo sedišč in nadgradnje ambienta glede na vaše cilje.</p>
+    </details>
+
+    <details>
+      <summary>Kako hitro lahko začnemo?</summary>
+      <p>Ko uskladimo cilje. Kontaktirajte nas in pripravimo jasen, kratek plan.</p>
+    </details>
+  </section>
+
+  <!-- Ratings -->
+  <section id="ratings">
+    <h2 class="section-title">Mnenja</h2>
+    <p class="muted">Urejen prostor in močna znamka se poznata takoj. Tako nas opisujejo stranke.</p>
+
+    <div class="services" style="margin-top: 22px;">
+      <div class="card">
+        <h3>★★★★★</h3>
+        <p>“Spremembe postavitve so takoj izboljšale izkušnjo gostov — in vsebina je končno zadela naš vibe.”</p>
+        <p style="margin-top:10px; color: var(--muted);">— Lastnik restavracije</p>
+      </div>
+
+      <div class="card">
+        <h3>★★★★★</h3>
+        <p>“Zdaj delujemo premium in konsistentno. Končno resen nastop.”</p>
+        <p style="margin-top:10px; color: var(--muted);">— Vodja bara</p>
+      </div>
+
+      <div class="card">
+        <h3>★★★★★</h3>
+        <p>“Zelo enostaven proces in konkretni rezultati.”</p>
+        <p style="margin-top:10px; color: var(--muted);">— Ustanovitelj pekarne</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div style="font-family:'Playfair Display', serif; letter-spacing:0.06em; font-size:18px;">VELOCITY</div>
+    <p style="color: var(--muted); margin: 10px 0 0;">Rast gostinskih znamk in optimizacija prostora.</p>
+
+    <div class="socials">
+      <a href="#" target="_blank" rel="noreferrer">X</a>
+      <a href="mailto:hello@velocity.agency">E-pošta</a>
+      <a href="index-en.html">EN</a>
+    </div>
+  </footer>
+
+</body>
+</html>
