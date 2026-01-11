@@ -279,7 +279,7 @@
       line-height: 1.7;
     }
 
-    /* Case study layout */
+    /* Case study */
     .case-grid{
       display:grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -307,17 +307,12 @@
       padding: 16px 18px;
       background: rgba(255,255,255,0.02);
     }
-
-    details + details{
-      margin-top: 12px;
-    }
-
+    details + details{ margin-top: 12px; }
     summary{
       cursor: pointer;
       font-weight: 700;
       letter-spacing: 0.02em;
     }
-
     details p{
       margin: 12px 0 0;
       color: var(--muted);
@@ -349,7 +344,6 @@
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.03);
     }
-
     footer a:hover{ border-color: rgba(255,255,255,0.22); }
 
     /* Mobile */
@@ -376,6 +370,7 @@
         <a href="#about">O NAS</a>
         <a href="#process">KAKO POTEKA</a>
         <a href="#results">REZULTATI</a>
+        <a href="#work">SODELOVANJE</a>
         <a href="#faq">FAQ</a>
         <a href="#contact" class="primary">REZERVIRAJ KLIC</a>
 
@@ -520,6 +515,62 @@
     </div>
   </section>
 
+  <!-- How we work / Deliverables -->
+  <section id="work">
+    <h2 class="section-title">Kako sodelovanje poteka</h2>
+    <p class="muted">
+      Brez nejasnosti, brez praznih obljub. Jasna struktura, jasni koraki in fokus na rezultat.
+    </p>
+
+    <div class="services">
+
+      <div class="card">
+        <h3>Kaj naredimo mi</h3>
+        <p>
+          Prevzamemo strateški del: pregled prostora, identifikacijo problemov,
+          optimizacijo postavitve ter jasno smer za vizualni in komunikacijski nastop.
+        </p>
+        <p style="margin-top:10px; color: var(--muted); line-height:1.7;">
+          Delamo sistematično — ne na pamet in ne po trendih brez konteksta.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Kaj dobite v prvih 7 dneh</h3>
+        <p style="color: var(--muted); line-height:1.8;">
+          • jasen pregled stanja<br>
+          • konkretne predloge izboljšav prostora<br>
+          • smernice za premium nastop<br>
+          • plan naslednjih korakov
+        </p>
+        <p style="margin-top:10px; color: var(--muted); line-height:1.7;">
+          Vse brez dolgih prezentacij in brez izgube časa.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Kaj pričakujemo od vas</h3>
+        <p style="color: var(--muted); line-height:1.8;">
+          • osnovne informacije o lokalu<br>
+          • cilje (več rezervacij, boljši vtis, konsistenca)<br>
+          • odprtost za izboljšave
+        </p>
+        <p style="margin-top:10px; color: var(--muted); line-height:1.7;">
+          Ne zahtevamo popolnosti — zahtevamo sodelovanje.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="cta-band">
+      <div class="cta-text">
+        Če želite preveriti, ali smo prava izbira, začnemo z enim kratkim pogovorom.
+        Brez obveznosti, brez prodajnega pritiska.
+      </div>
+      <a class="btn" href="#contact">Rezerviraj klic</a>
+    </div>
+  </section>
+
   <!-- Contact / Booking -->
   <section id="contact">
     <h2 class="section-title">Rezerviraj klic</h2>
@@ -590,39 +641,6 @@
       <summary>Koliko stane?</summary>
       <p>Odvisno od obsega. Po kratkem pregledu vam pošljemo jasno ponudbo (brez skritih stroškov).</p>
     </details>
-  </section>
-
-  <!-- Trust / Reviews -->
-  <section id="ratings">
-    <h2 class="section-title">Mnenja</h2>
-    <p class="muted">Urejen prostor in močna znamka se poznata takoj. Tako nas opisujejo stranke.</p>
-
-    <div class="services" style="margin-top: 22px;">
-      <div class="card">
-        <h3>★★★★★</h3>
-        <p>“Spremembe postavitve so takoj izboljšale izkušnjo gostov — in nastop je končno premium.”</p>
-        <p style="margin-top:10px; color: var(--muted);">— Lastnik restavracije</p>
-      </div>
-
-      <div class="card">
-        <h3>★★★★★</h3>
-        <p>“Jasen proces, brez zmede. Končno konsistentna podoba.”</p>
-        <p style="margin-top:10px; color: var(--muted);">— Vodja bara</p>
-      </div>
-
-      <div class="card">
-        <h3>★★★★★</h3>
-        <p>“Enostavno sodelovanje in konkretni rezultati.”</p>
-        <p style="margin-top:10px; color: var(--muted);">— Ustanovitelj pekarne</p>
-      </div>
-    </div>
-
-    <div class="cta-band">
-      <div class="cta-text">
-        Ko imate prve realne stranke, tukaj samo zamenjamo citate in (če želite) dodamo imena/logotipe.
-      </div>
-      <a class="btn" href="#contact">Rezerviraj klic</a>
-    </div>
   </section>
 
   <!-- Footer -->
