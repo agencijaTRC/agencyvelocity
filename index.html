@@ -21,7 +21,6 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -34,7 +33,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(6, 10, 18, 0.75);
+      background: rgba(6, 10, 18, 0.78);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
@@ -45,6 +44,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
+      position: relative;
     }
 
     .brand{
@@ -68,7 +68,7 @@
       align-items: center;
     }
 
-    .nav a{
+    .nav a, .menu-btn{
       text-decoration: none;
       color: var(--text);
       font-weight: 600;
@@ -92,6 +92,7 @@
       background: var(--accent);
       color: #0b1220;
       border-color: rgba(255,255,255,0.10);
+      font-weight: 800;
     }
 
     /* Language switch */
@@ -110,7 +111,42 @@
     .lang a.active{
       background: rgba(255,255,255,0.10);
       border-color: rgba(255,255,255,0.22);
-      font-weight: 700;
+      font-weight: 800;
+    }
+
+    /* Mobile hamburger */
+    .menu-btn{
+      display:none;
+      cursor:pointer;
+      font-weight: 900;
+      border-radius: 12px;
+    }
+
+    .menu-panel{
+      display:none;
+      position:absolute;
+      top: 58px;
+      right: 10%;
+      width: min(420px, calc(100vw - 12%));
+      background: rgba(6, 10, 18, 0.92);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 16px;
+      padding: 10px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+    }
+    .menu-panel.open{ display:block; }
+
+    .menu-panel a{
+      display:block;
+      margin: 8px 0;
+    }
+    .menu-panel .lang{
+      margin: 10px 0 0;
+      padding: 10px 0 0;
+      border-left:none;
+      border-top: 1px solid rgba(255,255,255,0.14);
+      justify-content:flex-start;
     }
 
     /* Hero */
@@ -185,20 +221,19 @@
       padding: 12px 16px;
       border-radius: 12px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       border: 1px solid rgba(255,255,255,0.12);
       color: #0b1220;
       background: var(--accent);
       transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease;
     }
-
     .btn:hover{ transform: translateY(-1px); opacity: .96; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
 
     .btn-ghost{
       background: transparent;
       color: var(--text);
       border: 1px solid rgba(255,255,255,0.16);
-      font-weight: 600;
+      font-weight: 700;
       box-shadow: none;
     }
 
@@ -218,16 +253,12 @@
     }
 
     /* Sections */
-    section{
-      padding: 86px 10%;
-    }
-
+    section{ padding: 86px 10%; }
     .section-title{
       font-family: 'Playfair Display', serif;
       font-size: 38px;
       margin: 0 0 18px;
     }
-
     .muted{
       color: var(--muted);
       line-height: 1.8;
@@ -248,7 +279,6 @@
       border-radius: 16px;
       transition: transform .22s ease, border-color .22s ease, background .22s ease;
     }
-
     .card:hover{
       transform: translateY(-3px);
       border-color: rgba(255,255,255,0.16);
@@ -262,12 +292,7 @@
       text-transform: uppercase;
       color: var(--accent);
     }
-
-    .card p{
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.7;
-    }
+    .card p{ margin: 0; color: var(--muted); line-height: 1.7; }
 
     .cta-band{
       margin-top: 22px;
@@ -286,6 +311,18 @@
       max-width: 70ch;
       line-height: 1.7;
     }
+
+    /* Stats strip */
+    .stats{ padding: 34px 10% 20px; }
+    .stat-grid{ margin-top: 0; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .stat-number{
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      letter-spacing: .02em;
+      color: var(--text);
+      margin: 0 0 6px;
+    }
+    .stat-label{ color: var(--muted); line-height: 1.7; margin: 0; }
 
     /* Case study */
     .case-grid{
@@ -316,24 +353,11 @@
       background: rgba(255,255,255,0.02);
     }
     details + details{ margin-top: 12px; }
-    summary{
-      cursor: pointer;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    details p{
-      margin: 12px 0 0;
-      color: var(--muted);
-      line-height: 1.7;
-    }
+    summary{ cursor: pointer; font-weight: 800; letter-spacing: 0.02em; }
+    details p{ margin: 12px 0 0; color: var(--muted); line-height: 1.7; }
 
     /* Question form */
-    .form-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 18px;
-    }
+    .form-grid{ display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
     .input{
       width: 100%;
       padding: 12px 12px;
@@ -353,7 +377,6 @@
       border-top: 1px solid rgba(255,255,255,0.06);
       text-align: center;
     }
-
     .socials{
       display:flex;
       justify-content:center;
@@ -361,11 +384,10 @@
       flex-wrap: wrap;
       margin-top: 14px;
     }
-
     footer a{
       color: var(--text);
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
@@ -374,7 +396,7 @@
     }
     footer a:hover{ border-color: rgba(255,255,255,0.22); transform: translateY(-1px); opacity: .95; }
 
-    /* === NEW: Scroll reveal animations === */
+    /* Scroll reveal */
     .reveal{
       opacity: 0;
       transform: translateY(14px);
@@ -386,28 +408,7 @@
       transform: translateY(0);
     }
 
-    /* === NEW: Stats strip === */
-    .stats{
-      padding: 34px 10% 20px;
-    }
-    .stat-grid{
-      margin-top: 0;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-    .stat-number{
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      letter-spacing: .02em;
-      color: var(--text);
-      margin: 0 0 6px;
-    }
-    .stat-label{
-      color: var(--muted);
-      line-height: 1.7;
-      margin: 0;
-    }
-
-    /* === NEW: Sticky CTA === */
+    /* Sticky CTA */
     .sticky-cta{
       position: fixed;
       right: 18px;
@@ -459,13 +460,18 @@
       .hero{ padding: 26px; }
       .brand{ min-width: auto; }
       .stats{ padding: 26px 6% 14px; }
+
+      /* hide desktop links + show hamburger */
+      .nav > a{ display:none; }
+      .nav .lang{ display:none; }
+      .menu-btn{ display:inline-flex; }
+      .menu-panel{ right: 6%; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Top Buttons / Menu -->
   <div class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -473,6 +479,7 @@
       </div>
 
       <nav class="nav">
+        <!-- Desktop -->
         <a href="#about">O NAS</a>
         <a href="#process">KAKO POTEKA</a>
         <a href="#results">REZULTATI</a>
@@ -484,11 +491,26 @@
           <a class="active" href="index.html">SI</a>
           <a href="index-en.html">EN</a>
         </div>
+
+        <!-- Mobile -->
+        <button class="menu-btn" type="button" onclick="toggleMenu()" aria-label="Open menu">☰ MENU</button>
+        <div class="menu-panel" id="menuPanel" aria-label="Mobile menu">
+          <a href="#about" onclick="closeMenu()">O NAS</a>
+          <a href="#process" onclick="closeMenu()">KAKO POTEKA</a>
+          <a href="#results" onclick="closeMenu()">REZULTATI</a>
+          <a href="#work" onclick="closeMenu()">SODELOVANJE</a>
+          <a href="#faq" onclick="closeMenu()">FAQ</a>
+          <a href="#contact" class="primary" onclick="closeMenu()">REZERVIRAJ KLIC</a>
+
+          <div class="lang" aria-label="Language switch (mobile)">
+            <a class="active" href="index.html">SI</a>
+            <a href="index-en.html">EN</a>
+          </div>
+        </div>
       </nav>
     </div>
   </div>
 
-  <!-- Hero -->
   <header>
     <div class="hero reveal">
       <div class="badge">Agencija za gostinstvo</div>
@@ -517,7 +539,6 @@
     </div>
   </header>
 
-  <!-- NEW: Stats strip -->
   <section class="stats" aria-label="Highlights">
     <div class="services stat-grid">
       <div class="card reveal">
@@ -535,7 +556,6 @@
     </div>
   </section>
 
-  <!-- About -->
   <section id="about" class="reveal">
     <h2 class="section-title">O NAS</h2>
     <p class="muted">
@@ -569,7 +589,6 @@
     </div>
   </section>
 
-  <!-- Process -->
   <section id="process" class="reveal">
     <h2 class="section-title">Kako poteka</h2>
     <p class="muted">Preprost, profesionalen proces — brez kompliciranja.</p>
@@ -592,7 +611,6 @@
     </div>
   </section>
 
-  <!-- Results / Case Study -->
   <section id="results" class="reveal">
     <h2 class="section-title">Rezultati</h2>
     <p class="muted">
@@ -639,7 +657,6 @@
     </div>
   </section>
 
-  <!-- How we work / Deliverables -->
   <section id="work" class="reveal">
     <h2 class="section-title">Kako sodelovanje poteka</h2>
     <p class="muted">
@@ -693,7 +710,6 @@
     </div>
   </section>
 
-  <!-- Ratings -->
   <section id="ratings" class="reveal">
     <h2 class="section-title">Mnenja</h2>
     <p class="muted">Dve kratki povratni informaciji (anonimno) — brez “fake” statistike.</p>
@@ -713,7 +729,6 @@
     </div>
   </section>
 
-  <!-- Contact -->
   <section id="contact" class="reveal">
     <h2 class="section-title">Rezerviraj klic</h2>
     <p class="muted">
@@ -725,7 +740,7 @@
         <h3>E-pošta</h3>
         <p>
           <a href="mailto:hello@velocity.agency?subject=VELOCITY%20%E2%80%94%20Povpra%C5%A1evanje&body=Pozdravljeni%2C%0A%0AIme%20lokala%3A%20%0ALokacija%3A%20%0ACilj%3A%20%0AKratek%20opis%3A%20%0A%0ALep%20pozdrav%2C"
-             style="color: var(--text); font-weight:700; text-decoration:none;">
+             style="color: var(--text); font-weight:800; text-decoration:none;">
             hello@velocity.agency
           </a>
         </p>
@@ -735,7 +750,7 @@
       <div class="card reveal">
         <h3>Telefon</h3>
         <p>
-          <a href="tel:+38664263773" style="color: var(--text); font-weight:700; text-decoration:none;">
+          <a href="tel:+38664263773" style="color: var(--text); font-weight:800; text-decoration:none;">
             064 263 773
           </a>
         </p>
@@ -746,17 +761,16 @@
         <h3>Povezave</h3>
         <p style="color: var(--muted);">Samo X, telefon in e-pošta.</p>
         <p style="margin-top:10px;">
-          <a href="#" target="_blank" rel="noreferrer" style="color: var(--text); font-weight:700; text-decoration:none;">X</a>
+          <a href="#" target="_blank" rel="noreferrer" style="color: var(--text); font-weight:800; text-decoration:none;">X</a>
           <span style="color: var(--muted); margin: 0 8px;">•</span>
-          <a href="tel:+38664263773" style="color: var(--text); font-weight:700; text-decoration:none;">064 263 773</a>
+          <a href="tel:+38664263773" style="color: var(--text); font-weight:800; text-decoration:none;">064 263 773</a>
           <span style="color: var(--muted); margin: 0 8px;">•</span>
-          <a href="mailto:hello@velocity.agency" style="color: var(--text); font-weight:700; text-decoration:none;">E-pošta</a>
+          <a href="mailto:hello@velocity.agency" style="color: var(--text); font-weight:800; text-decoration:none;">E-pošta</a>
         </p>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq" class="reveal">
     <h2 class="section-title">FAQ</h2>
 
@@ -785,7 +799,6 @@
       <p>Odvisno od obsega. Po kratkem pregledu vam pošljemo jasno ponudbo (brez skritih stroškov).</p>
     </details>
 
-    <!-- Visitor question -->
     <div class="cta-band reveal" style="margin-top: 18px;">
       <div class="cta-text">
         Imate vprašanje, ki ga ni tukaj? Pošljite ga spodaj — odgovorimo po e-pošti.
@@ -812,7 +825,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <div style="font-family:'Playfair Display', serif; letter-spacing:0.06em; font-size:18px;">VELOCITY</div>
     <p style="color: var(--muted); margin: 10px 0 0;">Rast gostinskih znamk in optimizacija prostora.</p>
@@ -825,7 +837,6 @@
     </div>
   </footer>
 
-  <!-- NEW: Sticky CTA -->
   <div class="sticky-cta" id="stickyCta">
     <a href="#contact"><span class="sticky-dot"></span> REZERVIRAJ KLIC</a>
   </div>
@@ -858,6 +869,30 @@
       document.getElementById('qText').value = '';
     }
 
+    function toggleMenu(){
+      const panel = document.getElementById('menuPanel');
+      panel.classList.toggle('open');
+    }
+    function closeMenu(){
+      const panel = document.getElementById('menuPanel');
+      panel.classList.remove('open');
+    }
+
+    // close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('menuPanel');
+      const btn = document.querySelector('.menu-btn');
+      if(!panel || !btn) return;
+      if(panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)){
+        panel.classList.remove('open');
+      }
+    });
+
+    // close on ESC
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeMenu();
+    });
+
     // Sticky CTA show/hide + Scroll reveal
     const sticky = document.getElementById('stickyCta');
     const revealEls = Array.from(document.querySelectorAll('.reveal'));
@@ -881,4 +916,3 @@
 
 </body>
 </html>
-
