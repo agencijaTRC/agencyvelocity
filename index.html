@@ -6,563 +6,255 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="VELOCITY je premium agencija za gostinstvo. Optimizacija prostora, postavitve in prepoznavnosti ter profesionalen digitalni nastop za restavracije, bare in pekarne." />
 
-  <!-- Favicons (upload these files to repo root) -->
+  <!-- Favicons -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;VELOCITY&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;/icon-512.png&quot;,&quot;sizes&quot;:&quot;512x512&quot;,&quot;type&quot;:&quot;image/png&quot;}]}">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg: #0b1220;
-      --panel: rgba(10, 15, 25, 0.55);
-      --panelBorder: rgba(255,255,255,0.10);
-      --text: #f3f4f6;
-      --muted: #cbd5e1;
-      --accent: #d6b25e; /* muted gold */
+      --bg:#0b1220;
+      --panel:rgba(10,15,25,.55);
+      --panelBorder:rgba(255,255,255,.10);
+      --text:#f3f4f6;
+      --muted:#cbd5e1;
+      --accent:#d6b25e;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background: var(--bg);
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      color:var(--text);
+      background:var(--bg);
     }
 
-    /* Top nav */
+    /* Topbar */
     .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(6, 10, 18, 0.78);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(6,10,18,.78);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-
     .topbar-inner{
-      padding: 14px 10%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      position: relative;
+      padding:14px 10%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      position:relative;
     }
 
-    /* Brand */
     .brand{
       display:flex;
       align-items:center;
       gap:10px;
-      min-width: 160px;
     }
-
-    .brand a{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-      color: var(--text);
-    }
-
-    /* Your logo image in navbar
-       Upload your logo as: velocity-logo.png */
     .brand-logo{
-      height: 22px;
-      width: auto;
+      height:22px;
+      width:auto;
       display:block;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
     }
 
-    /* Fallback if image fails */
-    .brand-fallback{
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 0.06em;
-      font-size: 18px;
-    }
-
-    .nav{
+    nav.nav{
       display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      align-items: center;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    nav a, .menu-btn{
+      text-decoration:none;
+      color:var(--text);
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      transition:.18s ease;
+    }
+    nav a:hover{transform:translateY(-1px);opacity:.95}
+    nav a.primary{
+      background:var(--accent);
+      color:#0b1220;
+      font-weight:800;
     }
 
-    .nav a, .menu-btn{
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 600;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      transition: transform .18s ease, border-color .18s ease, opacity .18s ease;
-    }
-
-    .nav a:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,0.22);
-      opacity: 0.95;
-    }
-
-    .nav a.primary{
-      background: var(--accent);
-      color: #0b1220;
-      border-color: rgba(255,255,255,0.10);
-      font-weight: 800;
-    }
-
-    /* Language switch */
     .lang{
       display:flex;
-      gap: 8px;
-      margin-left: 10px;
-      padding-left: 10px;
-      border-left: 1px solid rgba(255,255,255,0.14);
-    }
-    .lang a{
-      padding: 10px 10px;
-      min-width: 44px;
-      text-align: center;
+      gap:8px;
+      margin-left:10px;
+      padding-left:10px;
+      border-left:1px solid rgba(255,255,255,.14);
     }
     .lang a.active{
-      background: rgba(255,255,255,0.10);
-      border-color: rgba(255,255,255,0.22);
-      font-weight: 800;
+      background:rgba(255,255,255,.1);
+      font-weight:800;
     }
 
-    /* Mobile hamburger */
-    .menu-btn{
-      display:none;
-      cursor:pointer;
-      font-weight: 900;
-      border-radius: 12px;
-    }
-
+    /* Mobile menu */
+    .menu-btn{display:none;font-weight:900}
     .menu-panel{
       display:none;
       position:absolute;
-      top: 58px;
-      right: 10%;
-      width: min(420px, calc(100vw - 12%));
-      background: rgba(6, 10, 18, 0.92);
-      border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 16px;
-      padding: 10px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+      top:58px;
+      right:10%;
+      width:min(420px,calc(100vw - 12%));
+      background:rgba(6,10,18,.92);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:16px;
+      padding:10px;
+      backdrop-filter:blur(12px);
     }
-    .menu-panel.open{ display:block; }
-
-    .menu-panel a{
-      display:block;
-      margin: 8px 0;
-    }
+    .menu-panel.open{display:block}
+    .menu-panel a{display:block;margin:8px 0}
     .menu-panel .lang{
-      margin: 10px 0 0;
-      padding: 10px 0 0;
+      margin-top:10px;
+      padding-top:10px;
       border-left:none;
-      border-top: 1px solid rgba(255,255,255,0.14);
-      justify-content:flex-start;
+      border-top:1px solid rgba(255,255,255,.14);
     }
 
     /* Hero */
-    header {
-      position: relative;
-      min-height: 92vh;
-      display: flex;
-      align-items: center;
-      padding: 0 10%;
-      background-image:
-        linear-gradient(90deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.60) 100%),
+    header{
+      min-height:92vh;
+      display:flex;
+      align-items:center;
+      padding:0 10%;
+      background:
+        linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.35),rgba(0,0,0,.6)),
         url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=2400&q=80');
-      background-size: cover;
-      background-position: center;
+      background-size:cover;
+      background-position:center;
     }
-
-    .hero {
-      max-width: 880px;
-      background: var(--panel);
-      padding: 44px;
-      border-radius: 16px;
-      border: 1px solid var(--panelBorder);
-      backdrop-filter: blur(8px);
+    .hero{
+      max-width:880px;
+      background:var(--panel);
+      padding:44px;
+      border-radius:16px;
+      border:1px solid var(--panelBorder);
+      backdrop-filter:blur(8px);
     }
-
     .badge{
       display:inline-block;
-      font-size: 12px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      margin-bottom: 18px;
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.1);
+      margin-bottom:18px;
     }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(38px, 5.6vw, 62px);
-      margin: 0 0 12px;
-      letter-spacing: 0.01em;
-      line-height: 1.08;
+    h1{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(38px,5.6vw,62px);
+      margin:0 0 12px;
+      line-height:1.08;
     }
-
-    .hero .subheadline{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-      max-width: 70ch;
-    }
-
-    .hero p{
-      margin: 0 0 22px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.7;
-      max-width: 70ch;
-    }
-
-    .hero-actions{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-      align-items: center;
-    }
+    .subheadline{color:var(--muted);margin-bottom:18px}
+    .hero p{color:var(--muted);line-height:1.7}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
 
     .btn{
-      display:inline-block;
-      padding: 12px 16px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 800;
-      border: 1px solid rgba(255,255,255,0.12);
-      color: #0b1220;
-      background: var(--accent);
-      transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); opacity: .96; box-shadow: 0 12px 30px rgba(0,0,0,0.25); }
-
-    .btn-ghost{
-      background: transparent;
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.16);
-      font-weight: 700;
-      box-shadow: none;
-    }
-
-    .microproof{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .pill{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-    }
-
-    /* Sections */
-    section{ padding: 86px 10%; }
-    .section-title{
-      font-family: 'Playfair Display', serif;
-      font-size: 38px;
-      margin: 0 0 18px;
-    }
-    .muted{
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 82ch;
-    }
-
-    .services{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 22px;
-    }
-
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 26px;
-      border-radius: 16px;
-      transition: transform .22s ease, border-color .22s ease, background .22s ease;
-    }
-    .card:hover{
-      transform: translateY(-3px);
-      border-color: rgba(255,255,255,0.16);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
-    }
-
-    .card h3{
-      margin: 0 0 10px;
-      font-size: 13px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .card p{ margin: 0; color: var(--muted); line-height: 1.7; }
-
-    .cta-band{
-      margin-top: 22px;
-      padding: 22px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-      display:flex;
-      gap: 14px;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .cta-band .cta-text{
-      color: var(--muted);
-      max-width: 70ch;
-      line-height: 1.7;
-    }
-
-    /* Scroll reveal */
-    .reveal{
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity .7s ease, transform .7s ease;
-      will-change: opacity, transform;
-    }
-    .reveal.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Footer */
-    footer{
-      padding: 44px 10%;
-      background: #070c16;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      text-align: center;
-    }
-    .socials{
-      display:flex;
-      justify-content:center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-    footer a{
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 800;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.03);
-      transition: transform .18s ease, border-color .18s ease, opacity .18s ease;
-    }
-    footer a:hover{ border-color: rgba(255,255,255,0.22); transform: translateY(-1px); opacity: .95; }
-
-    /* Sticky CTA */
-    .sticky-cta{
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 9998;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-      transition: opacity .25s ease, transform .25s ease;
-    }
-    .sticky-cta.show{
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .sticky-cta a{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 12px 14px;
-      border-radius: 999px;
+      padding:12px 16px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.12);
+      background:var(--accent);
+      color:#0b1220;
       text-decoration:none;
-      font-weight: 900;
-      letter-spacing: .06em;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: var(--accent);
-      color: #0b1220;
-      box-shadow: 0 14px 34px rgba(0,0,0,0.38);
-      transition: transform .18s ease, opacity .18s ease, box-shadow .18s ease;
+    }
+    .btn-ghost{
+      background:transparent;
+      color:var(--text);
+      font-weight:700;
     }
 
-    /* Mobile */
-    @media (max-width: 720px){
-      .topbar-inner{ padding: 12px 6%; }
-      header{ padding: 0 6%; }
-      section{ padding: 70px 6%; }
-      .hero{ padding: 26px; }
+    section{padding:86px 10%}
+    footer{
+      padding:44px 10%;
+      background:#070c16;
+      border-top:1px solid rgba(255,255,255,.06);
+      text-align:center;
+    }
 
-      /* hide desktop links + show hamburger */
-      .nav > a{ display:none; }
-      .nav .lang{ display:none; }
-      .menu-btn{ display:inline-flex; }
-      .menu-panel{ right: 6%; }
-
-      .brand-logo{ height: 20px; }
+    @media(max-width:720px){
+      .topbar-inner{padding:12px 6%}
+      header{padding:0 6%}
+      section{padding:70px 6%}
+      .nav>a,.nav .lang{display:none}
+      .menu-btn{display:inline-flex}
+      .menu-panel{right:6%}
     }
   </style>
 </head>
 
-<body>
+<body id="top">
 
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <a href="#top" aria-label="VELOCITY home">
-          <!-- Upload your logo as velocity-logo.png -->
-          <img class="brand-logo" src="velocity-logo.png" alt="VELOCITY" onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='block';">
-          <span id="brandFallback" class="brand-fallback" style="display:none;">VELOCITY</span>
-        </a>
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="brand">
+      <img src="velocity%20logo.png" alt="VELOCITY" class="brand-logo">
+    </a>
+
+    <nav class="nav">
+      <a href="#about">O NAS</a>
+      <a href="#process">KAKO POTEKA</a>
+      <a href="#results">REZULTATI</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="primary">REZERVIRAJ KLIC</a>
+
+      <div class="lang">
+        <a class="active" href="index.html">SI</a>
+        <a href="index-en.html">EN</a>
       </div>
 
-      <nav class="nav">
-        <!-- Desktop -->
-        <a href="#about">O NAS</a>
-        <a href="#process">KAKO POTEKA</a>
-        <a href="#results">REZULTATI</a>
-        <a href="#work">SODELOVANJE</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact" class="primary">REZERVIRAJ KLIC</a>
+      <button class="menu-btn" onclick="toggleMenu()">☰ MENU</button>
+      <div class="menu-panel" id="menuPanel">
+        <a href="#about" onclick="closeMenu()">O NAS</a>
+        <a href="#process" onclick="closeMenu()">KAKO POTEKA</a>
+        <a href="#results" onclick="closeMenu()">REZULTATI</a>
+        <a href="#faq" onclick="closeMenu()">FAQ</a>
+        <a href="#contact" class="primary" onclick="closeMenu()">REZERVIRAJ KLIC</a>
+      </div>
+    </nav>
+  </div>
+</div>
 
-        <div class="lang" aria-label="Language switch">
-          <a class="active" href="index.html">SI</a>
-          <a href="index-en.html">EN</a>
-        </div>
-
-        <!-- Mobile -->
-        <button class="menu-btn" type="button" onclick="toggleMenu()" aria-label="Open menu">☰ MENU</button>
-        <div class="menu-panel" id="menuPanel" aria-label="Mobile menu">
-          <a href="#about" onclick="closeMenu()">O NAS</a>
-          <a href="#process" onclick="closeMenu()">KAKO POTEKA</a>
-          <a href="#results" onclick="closeMenu()">REZULTATI</a>
-          <a href="#work" onclick="closeMenu()">SODELOVANJE</a>
-          <a href="#faq" onclick="closeMenu()">FAQ</a>
-          <a href="#contact" class="primary" onclick="closeMenu()">REZERVIRAJ KLIC</a>
-
-          <div class="lang" aria-label="Language switch (mobile)">
-            <a class="active" href="index.html">SI</a>
-            <a href="index-en.html">EN</a>
-          </div>
-        </div>
-      </nav>
+<header>
+  <div class="hero">
+    <div class="badge">Agencija za gostinstvo</div>
+    <h1>Močnejše znamke. Boljši prostori. Pravi rezultati.</h1>
+    <p class="subheadline">Postavitev prostora + prepoznavnost + digitalni nastop.</p>
+    <p>Pomagamo gostinskim znamkam izboljšati ambient, izkušnjo in povpraševanje.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn">Rezerviraj klic</a>
+      <a href="#process" class="btn btn-ghost">Kako poteka</a>
     </div>
   </div>
+</header>
 
-  <header id="top">
-    <div class="hero reveal">
-      <div class="badge">Agencija za gostinstvo</div>
-      <h1>Močnejše znamke. Boljši prostori. Pravi rezultati.</h1>
+<footer>
+  <p style="color:var(--muted)">© VELOCITY</p>
+</footer>
 
-      <p class="subheadline">
-        Postavitev prostora + prepoznavnost + digitalni nastop — za restavracije, bare in pekarne.
-      </p>
-
-      <p>
-        Pomagamo gostinskim znamkam dvigniti ambient, povečati povpraševanja in izboljšati izkušnjo gostov —
-        od optimizacije postavitve do profesionalne strategije nastopa.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn" href="#contact">Rezerviraj klic</a>
-        <a class="btn btn-ghost" href="#results">Poglej rezultate</a>
-        <a class="btn btn-ghost" href="#process">Kako poteka</a>
-      </div>
-
-      <div class="microproof" aria-label="Trust signals">
-        <span class="pill">Premium pristop</span>
-        <span class="pill">Jasen proces</span>
-        <span class="pill">Gostinstvo fokus</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- Keep your sections below as you already had them (about/process/results/work/ratings/contact/faq/footer).
-       If you want, paste your exact current section blocks and I’ll merge them 1:1 into this file. -->
-
-  <footer>
-    <div style="font-family:'Playfair Display', serif; letter-spacing:0.06em; font-size:18px;">VELOCITY</div>
-    <p style="color: var(--muted); margin: 10px 0 0;">Rast gostinskih znamk in optimizacija prostora.</p>
-
-    <div class="socials">
-      <a href="#" target="_blank" rel="noreferrer">X</a>
-      <a href="mailto:hello@velocity.agency">E-pošta</a>
-      <a href="tel:+38664263773">064 263 773</a>
-      <a href="index-en.html">EN</a>
-    </div>
-  </footer>
-
-  <div class="sticky-cta" id="stickyCta">
-    <a href="#contact">REZERVIRAJ KLIC</a>
-  </div>
-
-  <script>
-    function toggleMenu(){
-      const panel = document.getElementById('menuPanel');
-      panel.classList.toggle('open');
-    }
-    function closeMenu(){
-      const panel = document.getElementById('menuPanel');
-      panel.classList.remove('open');
-    }
-
-    // close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      const panel = document.getElementById('menuPanel');
-      const btn = document.querySelector('.menu-btn');
-      if(!panel || !btn) return;
-      if(panel.classList.contains('open') && !panel.contains(e.target) && !btn.contains(e.target)){
-        panel.classList.remove('open');
-      }
-    });
-
-    // close on ESC
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape') closeMenu();
-    });
-
-    // Sticky CTA + reveal
-    const sticky = document.getElementById('stickyCta');
-    const revealEls = Array.from(document.querySelectorAll('.reveal'));
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('show');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(el => io.observe(el));
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 420) sticky.classList.add('show');
-      else sticky.classList.remove('show');
-    });
-  </script>
+<script>
+function toggleMenu(){
+  document.getElementById('menuPanel').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('menuPanel').classList.remove('open');
+}
+</script>
 
 </body>
 </html>
-
