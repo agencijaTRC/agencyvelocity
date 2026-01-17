@@ -1061,7 +1061,8 @@
       const AUTO_MS = 5000;
 
       // build dots
-      dotsWrap.innerHTMLoutine: for (let i=0;i<slides.length;i++){
+      dotsWrap.innerHTML = '';
+for (let i=0;i<slides.length;i++){
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'carousel-dot';
@@ -1199,3 +1200,4 @@
 
 </body>
 </html>
+
