@@ -51,9 +51,6 @@
       justify-content: space-between;
       gap: 14px;
       position: relative;
-
-      /* ✅ more height for 2x bigger logo */
-      min-height: 140px;
     }
 
     /* ✅ Brand logo */
@@ -65,16 +62,13 @@
       text-decoration: none;
       color: var(--text);
     }
-
-    /* ✅ 2x bigger (desktop) */
     .brand-logo{
-      height: 128px; /* was 64 */
+      height: 34px;            /* 🔥 bigger */
       width: auto;
       display: block;
       opacity: 1;
       filter: drop-shadow(0 8px 20px rgba(0,0,0,0.55));
     }
-
     .brand-fallback{
       font-family: 'Playfair Display', serif;
       letter-spacing: 0.06em;
@@ -148,7 +142,7 @@
     .menu-panel{
       display:none;
       position:absolute;
-      top: 70px;
+      top: 58px;
       right: 10%;
       width: min(420px, calc(100vw - 12%));
       background: rgba(6, 10, 18, 0.92);
@@ -475,23 +469,108 @@
       display:inline-block;
     }
 
+    /* =========================
+       ✅ CENTER CAROUSEL (About)
+       ========================= */
+    .carousel{
+      position: relative;
+      margin-top: 22px;
+    }
+    .carousel-viewport{
+      overflow: hidden;
+      border-radius: 18px;
+      /* gives “peek” effect */
+      padding: 4px 0;
+    }
+    .carousel-track{
+      display: flex;
+      gap: 16px;
+      will-change: transform;
+      transition: transform .45s ease;
+      align-items: stretch;
+    }
+    .carousel-slide{
+      flex: 0 0 70%;
+      min-width: 70%;
+      transform: scale(0.92);
+      opacity: 0.55;
+      filter: saturate(0.9);
+      transition: transform .35s ease, opacity .35s ease, filter .35s ease;
+    }
+    .carousel-slide.is-active{
+      transform: scale(1);
+      opacity: 1;
+      filter: saturate(1);
+    }
+
+    .carousel-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(6,10,18,0.62);
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      z-index: 5;
+      transition: transform .18s ease, opacity .18s ease, border-color .18s ease;
+    }
+    .carousel-arrow:hover{
+      transform: translateY(-50%) scale(1.03);
+      border-color: rgba(255,255,255,0.22);
+    }
+    .carousel-arrow:active{ transform: translateY(-50%) scale(0.98); }
+    .carousel-arrow.prev{ left: -10px; }
+    .carousel-arrow.next{ right: -10px; }
+
+    .carousel-dots{
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .carousel-dot{
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255,255,255,0.28);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .carousel-dot.is-active{
+      background: var(--accent);
+      transform: scale(1.15);
+    }
+
     /* Mobile */
     @media (max-width: 720px){
-      .topbar-inner{ padding: 12px 6%; min-height: 98px; }
+      .topbar-inner{ padding: 12px 6%; }
       header{ padding: 0 6%; }
       section{ padding: 70px 6%; }
       .hero{ padding: 26px; }
       .brand{ min-width: auto; }
-
-      /* ✅ 2x bigger (mobile) */
-      .brand-logo{ height: 80px; }
-
+      .brand-logo{ height: 26px; } /* visible on phone */
       .stats{ padding: 26px 6% 14px; }
 
+      /* hide desktop links + show hamburger */
       .nav > a{ display:none; }
       .nav .lang{ display:none; }
       .menu-btn{ display:inline-flex; }
-      .menu-panel{ right: 6%; top: 78px; }
+      .menu-panel{ right: 6%; }
+
+      /* carousel sizing on phone */
+      .carousel-slide{
+        flex: 0 0 86%;
+        min-width: 86%;
+      }
+      .carousel-arrow.prev{ left: -6px; }
+      .carousel-arrow.next{ right: -6px; }
     }
   </style>
 </head>
@@ -501,6 +580,7 @@
   <div class="topbar">
     <div class="topbar-inner">
 
+      <!-- ✅ Top-left logo -->
       <a class="brand" href="#top" aria-label="VELOCITY domov">
         <img class="brand-logo" src="velocity-logo.png" alt="VELOCITY logo"
              onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='block';">
@@ -593,21 +673,41 @@
       teče bolj gladko in prodaja več.
     </p>
 
-    <div class="services">
-      <div class="card reveal">
-        <h3>Prostor & pretok</h3>
-        <p>Optimiziramo postavitev, sedišča in gibanje, da je izkušnja gostov bolj udobna in tekoča.</p>
+    <!-- ✅ Milestone-style center carousel (arrows + dots + auto every 5s) -->
+    <div class="carousel reveal" id="aboutCarousel" aria-label="VELOCITY storitve">
+      <button class="carousel-arrow prev" type="button" aria-label="Previous" data-dir="-1">‹</button>
+      <button class="carousel-arrow next" type="button" aria-label="Next" data-dir="1">›</button>
+
+      <div class="carousel-viewport">
+        <div class="carousel-track">
+          <div class="card carousel-slide">
+            <h3>Prostor</h3>
+            <p>Uredimo postavitev, da prostor deluje premium, bolj logično in bolj “clean” na pogled.</p>
+          </div>
+
+          <div class="card carousel-slide">
+            <h3>Pretok</h3>
+            <p>Optimiziramo pretok gostov in osebja, da je manj zastojev, hitrejša storitev in boljša izkušnja.</p>
+          </div>
+
+          <div class="card carousel-slide">
+            <h3>Prepoznavnost znamke</h3>
+            <p>Uskladimo ambient + ton komunikacije + vizualno podobo, da gostje takoj razumejo vaš stil.</p>
+          </div>
+
+          <div class="card carousel-slide">
+            <h3>Digitalni nastop</h3>
+            <p>Postavimo profesionalen nastop (vsebina + strategija) — da dobite več povpraševanj in rezervacij.</p>
+          </div>
+
+          <div class="card carousel-slide">
+            <h3>Rezultati & optimizacija</h3>
+            <p>Merimo, izboljšujemo in držimo konsistenco — da rast ni naključje, ampak sistem.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="card reveal">
-        <h3>Prepoznavnost znamke</h3>
-        <p>Uskladimo ambient, ton komunikacije in vizualno podobo — da delujete premium in konsistentno.</p>
-      </div>
-
-      <div class="card reveal">
-        <h3>Digitalni nastop</h3>
-        <p>Postavimo in vodimo profesionalen nastop (vsebina + strategija), usmerjen v rezultate.</p>
-      </div>
+      <div class="carousel-dots" aria-label="Carousel dots"></div>
     </div>
 
     <div class="cta-band reveal">
@@ -872,9 +972,9 @@
 
   <script>
     function sendQuestionEmail(){
-      const name = (document.getElementById('qName')?.value || '').trim();
-      const email = (document.getElementById('qEmail')?.value || '').trim();
-      const q = (document.getElementById('qText')?.value || '').trim();
+      const name = (document.getElementById('qName').value || '').trim();
+      const email = (document.getElementById('qEmail').value || '').trim();
+      const q = (document.getElementById('qText').value || '').trim();
 
       if(!q){
         alert('Prosim vpišite vprašanje.');
@@ -893,23 +993,21 @@
     }
 
     function clearQuestionForm(){
-      const a = document.getElementById('qName');
-      const b = document.getElementById('qEmail');
-      const c = document.getElementById('qText');
-      if(a) a.value = '';
-      if(b) b.value = '';
-      if(c) c.value = '';
+      document.getElementById('qName').value = '';
+      document.getElementById('qEmail').value = '';
+      document.getElementById('qText').value = '';
     }
 
     function toggleMenu(){
       const panel = document.getElementById('menuPanel');
-      if(panel) panel.classList.toggle('open');
+      panel.classList.toggle('open');
     }
     function closeMenu(){
       const panel = document.getElementById('menuPanel');
-      if(panel) panel.classList.remove('open');
+      panel.classList.remove('open');
     }
 
+    // close menu when clicking outside
     document.addEventListener('click', (e) => {
       const panel = document.getElementById('menuPanel');
       const btn = document.querySelector('.menu-btn');
@@ -919,10 +1017,12 @@
       }
     });
 
+    // close on ESC
     document.addEventListener('keydown', (e) => {
       if(e.key === 'Escape') closeMenu();
     });
 
+    // Sticky CTA show/hide + Scroll reveal
     const sticky = document.getElementById('stickyCta');
     const revealEls = Array.from(document.querySelectorAll('.reveal'));
 
@@ -938,10 +1038,163 @@
     revealEls.forEach(el => io.observe(el));
 
     window.addEventListener('scroll', () => {
-      if (!sticky) return;
       if (window.scrollY > 420) sticky.classList.add('show');
       else sticky.classList.remove('show');
     });
+
+    /* =========================
+       ✅ Carousel logic (center, arrows, dots, auto 5s, swipe)
+       ========================= */
+    (function(){
+      const root = document.getElementById('aboutCarousel');
+      if(!root) return;
+
+      const viewport = root.querySelector('.carousel-viewport');
+      const track = root.querySelector('.carousel-track');
+      const slides = Array.from(root.querySelectorAll('.carousel-slide'));
+      const dotsWrap = root.querySelector('.carousel-dots');
+      const prevBtn = root.querySelector('.carousel-arrow.prev');
+      const nextBtn = root.querySelector('.carousel-arrow.next');
+
+      let index = 0;
+      let autoTimer = null;
+      const AUTO_MS = 5000;
+
+      // build dots
+      dotsWrap.innerHTMLoutine: for (let i=0;i<slides.length;i++){
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'carousel-dot';
+        b.setAttribute('aria-label', 'Go to slide ' + (i+1));
+        b.addEventListener('click', () => goTo(i, true));
+        dotsWrap.appendChild(b);
+      }
+      const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
+
+      function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+      function updateActive(){
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+      }
+
+      function centerOn(i){
+        const slide = slides[i];
+        if(!slide) return;
+
+        // ensure layout computed
+        const viewportRect = viewport.getBoundingClientRect();
+        const trackRect = track.getBoundingClientRect();
+        const slideRect = slide.getBoundingClientRect();
+
+        const viewportCenter = viewportRect.left + viewportRect.width / 2;
+        const slideCenter = slideRect.left + slideRect.width / 2;
+
+        const currentTranslate = getTranslateX(track);
+        const delta = viewportCenter - slideCenter;
+
+        track.style.transform = `translateX(${currentTranslate + delta}px)`;
+      }
+
+      function getTranslateX(el){
+        const st = window.getComputedStyle(el);
+        const tr = st.transform || 'none';
+        if(tr === 'none') return 0;
+        const m = tr.match(/matrix\(([^)]+)\)/);
+        if(!m) return 0;
+        const parts = m[1].split(',').map(v => parseFloat(v.trim()));
+        return parts[4] || 0;
+      }
+
+      function normalizePosition(){
+        // reset transform then center cleanly (prevents drift)
+        track.style.transform = 'translateX(0px)';
+        centerOn(index);
+      }
+
+      function goTo(i, userAction=false){
+        index = (i + slides.length) % slides.length;
+        updateActive();
+        normalizePosition();
+
+        if(userAction){
+          restartAuto();
+        }
+      }
+
+      function next(userAction=false){ goTo(index + 1, userAction); }
+      function prev(userAction=false){ goTo(index - 1, userAction); }
+
+      prevBtn.addEventListener('click', () => prev(true));
+      nextBtn.addEventListener('click', () => next(true));
+
+      // auto scroll
+      function startAuto(){
+        stopAuto();
+        autoTimer = setInterval(() => next(false), AUTO_MS);
+      }
+      function stopAuto(){
+        if(autoTimer){ clearInterval(autoTimer); autoTimer = null; }
+      }
+      function restartAuto(){
+        stopAuto();
+        startAuto();
+      }
+
+      // pause on hover/focus
+      root.addEventListener('mouseenter', stopAuto);
+      root.addEventListener('mouseleave', startAuto);
+      root.addEventListener('focusin', stopAuto);
+      root.addEventListener('focusout', startAuto);
+
+      // swipe support (mobile)
+      let startX = 0, startY = 0, dragging = false;
+      viewport.addEventListener('touchstart', (e) => {
+        if(!e.touches || e.touches.length !== 1) return;
+        dragging = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        stopAuto();
+      }, { passive:true });
+
+      viewport.addEventListener('touchmove', (e) => {
+        if(!dragging || !e.touches || e.touches.length !== 1) return;
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        // if mostly vertical scroll, ignore
+        if(Math.abs(dy) > Math.abs(dx)) return;
+      }, { passive:true });
+
+      viewport.addEventListener('touchend', (e) => {
+        if(!dragging) return;
+        dragging = false;
+
+        const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+        const dx = endX - startX;
+
+        if(Math.abs(dx) > 45){
+          if(dx < 0) next(true);
+          else prev(true);
+        } else {
+          startAuto();
+        }
+      });
+
+      // init
+      updateActive();
+      normalizePosition();
+      startAuto();
+
+      // keep centered on resize
+      let resizeTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          updateActive();
+          normalizePosition();
+        }, 120);
+      });
+    })();
   </script>
 
 </body>
