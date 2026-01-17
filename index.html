@@ -1062,13 +1062,7 @@
 
       // build dots
       dotsWrap.innerHTML = '';
-for (let i=0;i<slides.length;i++){
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'carousel-dot';
-        b.setAttribute('aria-label', 'Go to slide ' + (i+1));
-        b.addEventListener('click', () => goTo(i, true));
-        dotsWrap.appendChild(b);
+for (let i=0;i<slides.length;i++)
       }
       const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
 
@@ -1200,4 +1194,5 @@ for (let i=0;i<slides.length;i++){
 
 </body>
 </html>
+
 
