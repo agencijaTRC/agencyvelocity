@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="VELOCITY je premium agencija za gostinstvo. Optimizacija prostora, postavitve in prepoznavnosti ter profesionalen digitalni nastop za restavracije, bare in pekarne." />
 
-  <!-- ✅ Favicons (FILES MUST BE IN REPO ROOT) -->
+  <!-- Favicons (FILES MUST BE IN REPO ROOT) -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -22,7 +22,7 @@
       --panelBorder: rgba(255,255,255,0.10);
       --text: #f3f4f6;
       --muted: #cbd5e1;
-      --accent: #d6b25e; /* muted gold */
+      --accent: #d6b25e;
     }
 
     * { box-sizing: border-box; }
@@ -45,34 +45,36 @@
     }
 
     .topbar-inner{
-      padding: 14px 10%;
+      padding: 10px 10%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
       position: relative;
-
-      /* ✅ more height for 2x bigger logo */
-      min-height: 140px;
+      min-height: 64px; /* ✅ normal bar height */
     }
 
-    /* ✅ Brand logo */
+    /* Brand */
     .brand{
       display:flex;
       align-items:center;
       gap:10px;
-      min-width: 160px;
       text-decoration: none;
       color: var(--text);
+      min-width: 160px;
     }
 
-    /* ✅ 2x bigger (desktop) */
+    /* ✅ Make logo visible (brighten + glow) */
     .brand-logo{
-      height: 128px; /* was 64 */
+      height: 34px;           /* normal size */
       width: auto;
       display: block;
       opacity: 1;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.55));
+      filter:
+        brightness(1.55)
+        contrast(1.25)
+        drop-shadow(0 10px 22px rgba(0,0,0,0.65))
+        drop-shadow(0 0 10px rgba(214,178,94,0.18));
     }
 
     .brand-fallback{
@@ -98,7 +100,7 @@
       font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 10px 12px;
+      padding: 8px 10px; /* ✅ slightly tighter */
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.03);
@@ -127,7 +129,7 @@
       border-left: 1px solid rgba(255,255,255,0.14);
     }
     .lang a{
-      padding: 10px 10px;
+      padding: 8px 10px;
       min-width: 44px;
       text-align: center;
     }
@@ -148,7 +150,7 @@
     .menu-panel{
       display:none;
       position:absolute;
-      top: 70px;
+      top: 58px;
       right: 10%;
       width: min(420px, calc(100vw - 12%));
       background: rgba(6, 10, 18, 0.92);
@@ -475,23 +477,128 @@
       display:inline-block;
     }
 
+    /* =========================
+       ABOUT CAROUSEL (slides)
+       ========================= */
+    .about-carousel{
+      position: relative;
+      margin-top: 22px;
+      padding: 0;
+    }
+
+    .carousel-viewport{
+      overflow: hidden;
+      border-radius: 16px;
+    }
+
+    .carousel-track{
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+      transition: transform 420ms ease;
+      will-change: transform;
+      padding: 0 2px; /* small so cards don't clip */
+    }
+
+    /* ✅ Less empty space: slides are tighter */
+    .carousel-slide{
+      flex: 0 0 62%;
+      min-height: 112px; /* prevents big tall empty block */
+      display: flex;
+    }
+
+    .carousel-slide .card{
+      width: 100%;
+      margin: 0;
+      padding: 22px; /* tighter than default */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Active vs neighbors */
+    .carousel-slide{
+      opacity: 0.45;
+      transform: scale(0.96);
+      transition: opacity 320ms ease, transform 320ms ease;
+    }
+    .carousel-slide.is-active{
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* arrows */
+    .carousel-arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(6,10,18,0.72);
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .18s ease, border-color .18s ease, opacity .18s ease;
+      z-index: 5;
+    }
+    .carousel-arrow:hover{
+      transform: translateY(-50%) scale(1.05);
+      border-color: rgba(255,255,255,0.22);
+      opacity: 0.95;
+    }
+    .carousel-arrow.left{ left: -6px; }
+    .carousel-arrow.right{ right: -6px; }
+
+    /* dots */
+    .carousel-dots{
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    .carousel-dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.18);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+    }
+    .carousel-dot:hover{ transform: scale(1.15); opacity: 0.95; }
+    .carousel-dot.active{
+      background: var(--accent);
+      border-color: rgba(255,255,255,0.10);
+      opacity: 1;
+      transform: scale(1.25);
+    }
+
     /* Mobile */
     @media (max-width: 720px){
-      .topbar-inner{ padding: 12px 6%; min-height: 98px; }
+      .topbar-inner{ padding: 10px 6%; min-height: 62px; }
       header{ padding: 0 6%; }
       section{ padding: 70px 6%; }
       .hero{ padding: 26px; }
       .brand{ min-width: auto; }
-
-      /* ✅ 2x bigger (mobile) */
-      .brand-logo{ height: 80px; }
+      .brand-logo{ height: 28px; } /* ✅ visible on phone */
 
       .stats{ padding: 26px 6% 14px; }
 
       .nav > a{ display:none; }
       .nav .lang{ display:none; }
       .menu-btn{ display:inline-flex; }
-      .menu-panel{ right: 6%; top: 78px; }
+      .menu-panel{ right: 6%; top: 58px; }
+
+      /* carousel on phone: show mostly one, little peek */
+      .carousel-slide{ flex: 0 0 86%; }
+      .carousel-arrow.left{ left: 6px; }
+      .carousel-arrow.right{ right: 6px; }
     }
   </style>
 </head>
@@ -508,7 +615,6 @@
       </a>
 
       <nav class="nav">
-        <!-- Desktop -->
         <a href="#about">O NAS</a>
         <a href="#process">KAKO POTEKA</a>
         <a href="#results">REZULTATI</a>
@@ -521,7 +627,6 @@
           <a href="index-en.html">EN</a>
         </div>
 
-        <!-- Mobile -->
         <button class="menu-btn" type="button" onclick="toggleMenu()" aria-label="Open menu">☰ MENU</button>
         <div class="menu-panel" id="menuPanel" aria-label="Mobile menu">
           <a href="#about" onclick="closeMenu()">O NAS</a>
@@ -593,21 +698,37 @@
       teče bolj gladko in prodaja več.
     </p>
 
-    <div class="services">
-      <div class="card reveal">
-        <h3>Prostor & pretok</h3>
-        <p>Optimiziramo postavitev prostora, da je izkušnja gostov bolj udobna in tekoča.</p>
+    <!-- ✅ Carousel replacing 3 cards -->
+    <div class="about-carousel" aria-label="O nas - storitve (carousel)">
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="aboutTrack">
+          <div class="carousel-slide">
+            <div class="card">
+              <h3>Prostor & pretok</h3>
+              <p>Optimiziramo postavitev in pretok gostov, da lokal deluje bolj tekoče, sprejme več ljudi in ustvari več prometa.</p>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="card">
+              <h3>Prepoznavnost znamke</h3>
+              <p>Uskladimo ambient + ton komunikacije + vizualno podobo, da gostje takoj razumejo vaš stil in vas lažje prepoznajo.</p>
+            </div>
+          </div>
+
+          <div class="carousel-slide">
+            <div class="card">
+              <h3>Digitalni nastop</h3>
+              <p>Postavimo profesionalen nastop (vsebina + strategija) in ga vodimo tako, da prinaša realna povpraševanja in rezervacije.</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card reveal">
-        <h3>Prepoznavnost znamke</h3>
-        <p>Uskladimo ambient, ton komunikacije in vizualno podobo — da delujete premium in konsistentno.</p>
-      </div>
+      <div class="carousel-arrow left" id="aboutPrev" aria-label="Previous slide">‹</div>
+      <div class="carousel-arrow right" id="aboutNext" aria-label="Next slide">›</div>
 
-      <div class="card reveal">
-        <h3>Digitalni nastop</h3>
-        <p>Postavimo in vodimo profesionalen nastop (vsebina + strategija), usmerjen v rezultate.</p>
-      </div>
+      <div class="carousel-dots" id="aboutDots" aria-label="Slide dots"></div>
     </div>
 
     <div class="cta-band reveal">
@@ -923,6 +1044,7 @@
       if(e.key === 'Escape') closeMenu();
     });
 
+    // Scroll reveal
     const sticky = document.getElementById('stickyCta');
     const revealEls = Array.from(document.querySelectorAll('.reveal'));
 
@@ -942,6 +1064,107 @@
       if (window.scrollY > 420) sticky.classList.add('show');
       else sticky.classList.remove('show');
     });
+
+    /* =========================
+       ABOUT CAROUSEL JS
+       - arrows + dots
+       - auto every 5s
+       - center slide bigger
+       ========================= */
+    (function initAboutCarousel(){
+      const track = document.getElementById('aboutTrack');
+      const prevBtn = document.getElementById('aboutPrev');
+      const nextBtn = document.getElementById('aboutNext');
+      const dotsWrap = document.getElementById('aboutDots');
+      if(!track || !prevBtn || !nextBtn || !dotsWrap) return;
+
+      const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+      if(slides.length === 0) return;
+
+      let index = 0;
+      let timer = null;
+
+      function clampIndex(i){
+        const n = slides.length;
+        return (i % n + n) % n;
+      }
+
+      function buildDots(){
+        dotsWrap.innerHTML = '';
+        slides.forEach((_, i) => {
+          const d = document.createElement('button');
+          d.type = 'button';
+          d.className = 'carousel-dot' + (i === index ? ' active' : '');
+          d.setAttribute('aria-label', `Go to slide ${i+1}`);
+          d.addEventListener('click', () => {
+            goTo(i, true);
+          });
+          dotsWrap.appendChild(d);
+        });
+      }
+
+      function updateActiveClasses(){
+        slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+        const dots = Array.from(dotsWrap.querySelectorAll('.carousel-dot'));
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      }
+
+      function getSlideStep(){
+        // step = slide width + gap
+        const slide = slides[0];
+        const slideW = slide.getBoundingClientRect().width;
+        const styles = window.getComputedStyle(track);
+        const gap = parseFloat(styles.columnGap || styles.gap || '16') || 16;
+        return slideW + gap;
+      }
+
+      function position(){
+        const step = getSlideStep();
+        const viewport = track.parentElement; // .carousel-viewport
+        const viewportW = viewport.getBoundingClientRect().width;
+
+        // center active slide
+        const slideW = slides[0].getBoundingClientRect().width;
+        const centerOffset = (viewportW - slideW) / 2;
+
+        const x = -(index * step) + centerOffset;
+        track.style.transform = `translateX(${x}px)`;
+        updateActiveClasses();
+      }
+
+      function resetAuto(){
+        if(timer) clearInterval(timer);
+        timer = setInterval(() => goTo(index + 1, false), 5000);
+      }
+
+      function goTo(i, userAction){
+        index = clampIndex(i);
+        buildDots();      // ensures dots count correct
+        position();
+        if(userAction) resetAuto();
+      }
+
+      prevBtn.addEventListener('click', () => goTo(index - 1, true));
+      nextBtn.addEventListener('click', () => goTo(index + 1, true));
+      window.addEventListener('resize', () => position());
+
+      // pause on hover (desktop)
+      const root = track.closest('.about-carousel');
+      if(root){
+        root.addEventListener('mouseenter', () => { if(timer) clearInterval(timer); });
+        root.addEventListener('mouseleave', () => resetAuto());
+        // touch start: pause a bit
+        root.addEventListener('touchstart', () => { if(timer) clearInterval(timer); }, {passive:true});
+        root.addEventListener('touchend', () => resetAuto(), {passive:true});
+      }
+
+      // init
+      buildDots();
+      // mark active
+      slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
+      position();
+      resetAuto();
+    })();
   </script>
 
 </body>
