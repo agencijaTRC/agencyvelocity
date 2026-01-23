@@ -51,7 +51,7 @@
       justify-content: space-between;
       gap: 14px;
       position: relative;
-      min-height: 64px; /* ✅ normal bar height */
+      min-height: 64px;
     }
 
     /* Brand */
@@ -64,25 +64,13 @@
       min-width: 160px;
     }
 
-    /* ✅ Make logo visible (brighten + glow) */
-    .brand-logo{
-      height: 34px;           /* normal size */
-      width: auto;
-      display: block;
-      opacity: 1;
-      filter:
-        brightness(1.55)
-        contrast(1.25)
-        drop-shadow(0 10px 22px rgba(0,0,0,0.65))
-        drop-shadow(0 0 10px rgba(214,178,94,0.18));
-    }
-
-    .brand-fallback{
+    .brand-text{
       font-family: 'Playfair Display', serif;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       font-size: 18px;
       line-height: 1;
       margin: 0;
+      color: var(--accent);
     }
 
     .nav{
@@ -100,7 +88,7 @@
       font-size: 13px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 8px 10px; /* ✅ slightly tighter */
+      padding: 8px 10px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,0.12);
       background: rgba(255,255,255,0.03);
@@ -120,7 +108,7 @@
       font-weight: 800;
     }
 
-    /* Language switch */
+    /* Language switch (desktop) */
     .lang{
       display:flex;
       gap: 8px;
@@ -145,6 +133,41 @@
       cursor:pointer;
       font-weight: 900;
       border-radius: 12px;
+    }
+
+    /* ✅ Mobile controls wrapper: lang buttons next to burger */
+    .mobile-controls{
+      display:none;
+      align-items:center;
+      gap: 10px;
+    }
+    .lang-mobile{
+      display:flex;
+      gap: 8px;
+    }
+    .lang-mobile a{
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      min-width: 44px;
+      text-align:center;
+      transition: transform .18s ease, border-color .18s ease, opacity .18s ease;
+    }
+    .lang-mobile a:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.22);
+      opacity: 0.95;
+    }
+    .lang-mobile a.active{
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.22);
     }
 
     .menu-panel{
@@ -497,37 +520,32 @@
       align-items: stretch;
       transition: transform 420ms ease;
       will-change: transform;
-      padding: 0 2px; /* small so cards don't clip */
+      padding: 0 2px;
     }
 
-    /* ✅ Less empty space: slides are tighter */
     .carousel-slide{
       flex: 0 0 62%;
-      min-height: 112px; /* prevents big tall empty block */
+      min-height: 112px;
       display: flex;
+      opacity: 0.45;
+      transform: scale(0.96);
+      transition: opacity 320ms ease, transform 320ms ease;
     }
 
     .carousel-slide .card{
       width: 100%;
       margin: 0;
-      padding: 22px; /* tighter than default */
+      padding: 22px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    /* Active vs neighbors */
-    .carousel-slide{
-      opacity: 0.45;
-      transform: scale(0.96);
-      transition: opacity 320ms ease, transform 320ms ease;
-    }
     .carousel-slide.is-active{
       opacity: 1;
       transform: scale(1);
     }
 
-    /* arrows */
     .carousel-arrow{
       position: absolute;
       top: 50%;
@@ -554,7 +572,6 @@
     .carousel-arrow.left{ left: -6px; }
     .carousel-arrow.right{ right: -6px; }
 
-    /* dots */
     .carousel-dots{
       display: flex;
       gap: 8px;
@@ -586,16 +603,18 @@
       section{ padding: 70px 6%; }
       .hero{ padding: 26px; }
       .brand{ min-width: auto; }
-      .brand-logo{ height: 28px; } /* ✅ visible on phone */
 
       .stats{ padding: 26px 6% 14px; }
 
       .nav > a{ display:none; }
       .nav .lang{ display:none; }
+
+      /* ✅ show mobile controls */
+      .mobile-controls{ display:flex; }
       .menu-btn{ display:inline-flex; }
+
       .menu-panel{ right: 6%; top: 58px; }
 
-      /* carousel on phone: show mostly one, little peek */
       .carousel-slide{ flex: 0 0 86%; }
       .carousel-arrow.left{ left: 6px; }
       .carousel-arrow.right{ right: 6px; }
@@ -608,9 +627,9 @@
   <div class="topbar">
     <div class="topbar-inner">
 
-     <a class="brand" href="#top" aria-label="VELOCITY domov">
-  <span class="brand-text">VELOCITY</span>
-</a>
+      <a class="brand" href="#top" aria-label="VELOCITY domov">
+        <span class="brand-text">VELOCITY</span>
+      </a>
 
       <nav class="nav">
         <a href="#about">O NAS</a>
@@ -620,12 +639,22 @@
         <a href="#faq">FAQ</a>
         <a href="#contact" class="primary">REZERVIRAJ KLIC</a>
 
+        <!-- Desktop language -->
         <div class="lang" aria-label="Language switch">
-          <a class="active" href="index.html">SI</a>
-          <a href="index-en.html">EN</a>
+          <a data-lang="si" href="index.html">SI</a>
+          <a data-lang="en" href="index-en.html">EN</a>
         </div>
 
-        <button class="menu-btn" type="button" onclick="toggleMenu()" aria-label="Open menu">☰ MENU</button>
+        <!-- ✅ Mobile: language right next to burger -->
+        <div class="mobile-controls" aria-label="Mobile controls">
+          <div class="lang-mobile" aria-label="Language switch (mobile)">
+            <a data-lang="si" href="index.html">SI</a>
+            <a data-lang="en" href="index-en.html">EN</a>
+          </div>
+
+          <button class="menu-btn" type="button" onclick="toggleMenu()" aria-label="Open menu">☰ MENU</button>
+        </div>
+
         <div class="menu-panel" id="menuPanel" aria-label="Mobile menu">
           <a href="#about" onclick="closeMenu()">O NAS</a>
           <a href="#process" onclick="closeMenu()">KAKO POTEKA</a>
@@ -634,9 +663,10 @@
           <a href="#faq" onclick="closeMenu()">FAQ</a>
           <a href="#contact" class="primary" onclick="closeMenu()">REZERVIRAJ KLIC</a>
 
-          <div class="lang" aria-label="Language switch (mobile)">
-            <a class="active" href="index.html">SI</a>
-            <a href="index-en.html">EN</a>
+          <!-- Optional: keep language inside menu too (handy) -->
+          <div class="lang" aria-label="Language switch (menu)">
+            <a data-lang="si" href="index.html">SI</a>
+            <a data-lang="en" href="index-en.html">EN</a>
           </div>
         </div>
       </nav>
@@ -696,7 +726,6 @@
       teče bolj gladko in prodaja več.
     </p>
 
-    <!-- ✅ Carousel replacing 3 cards -->
     <div class="about-carousel" aria-label="O nas - storitve (carousel)">
       <div class="carousel-viewport">
         <div class="carousel-track" id="aboutTrack">
@@ -886,12 +915,25 @@
       <div class="card reveal">
         <h3>E-pošta</h3>
         <p>
-          <a href="mailto:hello@velocity.agency?subject=VELOCITY%20%E2%80%94%20Povpra%C5%A1evanje&body=Pozdravljeni%2C%0A%0AIme%20lokala%3A%20%0ALokacija%3A%20%0ACilj%3A%20%0AKratek%20opis%3A%20%0A%0ALep%20pozdrav%2C"
-             style="color: var(--text); font-weight:800; text-decoration:none;">
-            hello@velocity.agency
+          <a
+            href="mailto:agencijatrc@gmail.com?subject=VELOCITY%20%E2%80%94%20Povpra%C5%A1evanje&body=Pozdravljeni%2C%0A%0AIme%20lokala%3A%20%0ALokacija%3A%20%0ACilj%3A%20%0AKratek%20opis%3A%20%0A%0ALep%20pozdrav%2C"
+            style="color: var(--text); font-weight:800; text-decoration:none;"
+          >
+            agencijatrc@gmail.com
           </a>
         </p>
         <p style="margin-top:10px; color: var(--muted);">Klik odpre e-pošto z že pripravljenim sporočilom.</p>
+
+        <p style="margin-top:12px;">
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=agencijatrc@gmail.com&su=VELOCITY%20%E2%80%94%20Povpra%C5%A1evanje&body=Pozdravljeni%2C%0A%0AIme%20lokala%3A%20%0ALokacija%3A%20%0ACilj%3A%20%0AKratek%20opis%3A%20%0A%0ALep%20pozdrav%2C"
+            target="_blank" rel="noopener noreferrer"
+            style="color: var(--muted); font-weight:800; text-decoration:none;"
+            aria-label="Open Gmail compose"
+          >
+            (odpri v Gmailu)
+          </a>
+        </p>
       </div>
 
       <div class="card reveal">
@@ -908,11 +950,11 @@
         <h3>Povezave</h3>
         <p style="color: var(--muted);">Samo X, telefon in e-pošta.</p>
         <p style="margin-top:10px;">
-          <a href="#" target="_blank" rel="noreferrer" style="color: var(--text); font-weight:800; text-decoration:none;">X</a>
+          <a href="https://x.com/AgencijaAi18334" target="_blank" rel="noopener noreferrer" style="color: var(--text); font-weight:800; text-decoration:none;">X</a>
           <span style="color: var(--muted); margin: 0 8px;">•</span>
           <a href="tel:+38664263773" style="color: var(--text); font-weight:800; text-decoration:none;">064 263 773</a>
           <span style="color: var(--muted); margin: 0 8px;">•</span>
-          <a href="mailto:hello@velocity.agency" style="color: var(--text); font-weight:800; text-decoration:none;">E-pošta</a>
+          <a href="mailto:agencijatrc@gmail.com" style="color: var(--text); font-weight:800; text-decoration:none;">E-pošta</a>
         </p>
       </div>
     </div>
@@ -977,8 +1019,9 @@
     <p style="color: var(--muted); margin: 10px 0 0;">Rast gostinskih znamk in optimizacija prostora.</p>
 
     <div class="socials">
-      <a href="#" target="_blank" rel="noreferrer">X</a>
-      <a href="mailto:hello@velocity.agency">E-pošta</a>
+      <a href="https://x.com/AgencijaAi18334" target="_blank" rel="noopener noreferrer">X</a>
+      <a href="mailto:agencijatrc@gmail.com">E-pošta</a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=agencijatrc@gmail.com&su=VELOCITY%20%E2%80%94%20Povpra%C5%A1evanje&body=Pozdravljeni%2C%0A%0AIme%20lokala%3A%20%0ALokacija%3A%20%0ACilj%3A%20%0AKratek%20opis%3A%20%0A%0ALep%20pozdrav%2C" target="_blank" rel="noopener noreferrer">Gmail</a>
       <a href="tel:+38664263773">064 263 773</a>
       <a href="index-en.html">EN</a>
     </div>
@@ -989,6 +1032,14 @@
   </div>
 
   <script>
+    /* ✅ Auto-highlight language buttons based on filename */
+    (function setLangActive(){
+      const file = (location.pathname.split('/').pop() || '').toLowerCase();
+      const isEN = file.includes('en');
+      document.querySelectorAll('[data-lang="en"]').forEach(a => a.classList.toggle('active', isEN));
+      document.querySelectorAll('[data-lang="si"]').forEach(a => a.classList.toggle('active', !isEN));
+    })();
+
     function sendQuestionEmail(){
       const name = (document.getElementById('qName')?.value || '').trim();
       const email = (document.getElementById('qEmail')?.value || '').trim();
@@ -1007,7 +1058,7 @@
         `Lep pozdrav,\n`
       );
 
-      window.location.href = `mailto:hello@velocity.agency?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:agencijatrc@gmail.com?subject=${subject}&body=${body}`;
     }
 
     function clearQuestionForm(){
@@ -1064,9 +1115,6 @@
 
     /* =========================
        ABOUT CAROUSEL JS
-       - arrows + dots
-       - auto every 5s
-       - center slide bigger
        ========================= */
     (function initAboutCarousel(){
       const track = document.getElementById('aboutTrack');
@@ -1107,7 +1155,6 @@
       }
 
       function getSlideStep(){
-        // step = slide width + gap
         const slide = slides[0];
         const slideW = slide.getBoundingClientRect().width;
         const styles = window.getComputedStyle(track);
@@ -1117,10 +1164,8 @@
 
       function position(){
         const step = getSlideStep();
-        const viewport = track.parentElement; // .carousel-viewport
+        const viewport = track.parentElement;
         const viewportW = viewport.getBoundingClientRect().width;
-
-        // center active slide
         const slideW = slides[0].getBoundingClientRect().width;
         const centerOffset = (viewportW - slideW) / 2;
 
@@ -1136,7 +1181,7 @@
 
       function goTo(i, userAction){
         index = clampIndex(i);
-        buildDots();      // ensures dots count correct
+        buildDots();
         position();
         if(userAction) resetAuto();
       }
@@ -1145,19 +1190,15 @@
       nextBtn.addEventListener('click', () => goTo(index + 1, true));
       window.addEventListener('resize', () => position());
 
-      // pause on hover (desktop)
       const root = track.closest('.about-carousel');
       if(root){
         root.addEventListener('mouseenter', () => { if(timer) clearInterval(timer); });
         root.addEventListener('mouseleave', () => resetAuto());
-        // touch start: pause a bit
         root.addEventListener('touchstart', () => { if(timer) clearInterval(timer); }, {passive:true});
         root.addEventListener('touchend', () => resetAuto(), {passive:true});
       }
 
-      // init
       buildDots();
-      // mark active
       slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
       position();
       resetAuto();
@@ -1166,9 +1207,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
